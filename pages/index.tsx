@@ -18,7 +18,6 @@ export default function Home() {
     const handleAmountChange=(e: React.ChangeEvent<HTMLInputElement>)=>{
         setAmount(Number(e.target.value))
     }
-
     return (
         <main className={styles.main}>
             <div className={styles.title}>
@@ -58,12 +57,14 @@ export default function Home() {
     )
 }
 
+
+
 type DropDownProps = {
  func:(arg0: string)=>void;
  currencies: {[p: string]: number} | undefined;
 }
 export function DropDown({func,currencies}:DropDownProps){
-    const [selectedOption,setSelectedOption] = useState(''); //set initial value to empty string
+    const [selectedOption,setSelectedOption] = useState(" "); //set initial value to empty string
     let index = 0;
     // @ts-ignore
     const handleChange = (e) => {
@@ -78,6 +79,7 @@ export function DropDown({func,currencies}:DropDownProps){
     return (
         <div>
             <select value={selectedOption} onChange={handleChange}>
+                <option value=" ">Select</option>
                 {Object.keys(currencies).map((currency) => (
                     <option key={index++} value={currency}>
                         {currency}
@@ -106,5 +108,5 @@ export function Convert(fromCurrency:number,toCurrency:number,amount:number){
     console.log(toCurrency)
     console.log(amount)
     let totalEuro = amount / fromCurrency;
-    return totalEuro * toCurrency;
+    return parseFloat((totalEuro * toCurrency).toFixed(4));
 }
